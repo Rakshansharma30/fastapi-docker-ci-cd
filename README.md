@@ -53,7 +53,3 @@ Edit
 2. Go to **GitHub Repo → Settings → Secrets → Actions**.
 3. Add a new secret named `DOCKERTOKEN`.
 4. The GitHub Actions workflow will use this secret to authenticate.
-
-## Submission
-- **GitHub Repo**: [GitHub Repository URL]
-- **Docker Hub Image**: [Docker Hub Image URL]

@@ -1,20 +1,23 @@
-# Use Ubuntu as the base image
+# Use Ubuntu latest as the base image
 FROM ubuntu:latest
 
-# Install Python and necessary dependencies
-RUN apt update && apt install -y python3 python3-pip
+# Install dependencies
+RUN apt update && apt install -y python3 python3-pip python3-venv
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy application files
+# Copy project files
 COPY . .
 
-# Install dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt
+# Create and activate virtual environment, then install dependencies
+RUN python3 -m venv venv && \
+    . venv/bin/activate && \
+    pip install --upgrade pip && \
+    pip install -r requirements.txt
 
-# Expose the port the app runs on
+# Expose the port the FastAPI app runs on (change if needed)
 EXPOSE 8000
 
-# Run the FastAPI application
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Command to run the application
+CMD ["/app/venv/bin/python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
